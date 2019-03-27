@@ -24,32 +24,33 @@ Begin by examining the exisiting code. You'll notice that our piano is a Scalabl
 - Each polygon (pianoKey) has an associated audio tag.
   _ These are tied together by the data-key property.
   _ data-key is a custom html attribute that allows us to store data to HTML elements. You can find more on them <a href="https://www.w3schools.com/tags/att_global_data.asp">here</a>. \* You can access the data-key attribute by targeting the element using `querySelector` and accessing the `data-key` property using bracket notation.
-  <details>
-  <summary><code> Example </code></summary>
-  ```js
-  // Here we're accessing the audio element with a data-key property of 65
 
-              const element = document.querySelector('audio[data-key="65"]');
-          ```
-          </details>
+<details>
 
-  _You now know everything you need to get this piano working!_
+<summary><code> Example </code></summary>
+
+```js
+// Here we're accessing the audio element with a data-key property of 65
+
+const element = document.querySelector('audio[data-key="65"]');
+```
+</details>
 
 ## Step 2
 
 ### Summary
 
-In this step, we'll setup our application by declaring a new event listener and assigning the functionality. We want to listen for any keypress that occurs anywhere on our page. For this, we need to attach an event to the window.
+In this step, we'll setup our application by declaring a new event listener and assigning the functionality. We want to listen for any `keypress` that occurs anywhere on our page. For this, we need to attach an event to the window.
 
 ### Instructions
 
 - Open `index.html`.
 - Locate the opening and closing `script` tags.
-- In between the `script tags` declare a new event listener on our window object and provide it two arguments, the event to listen for and the handler to fire once that event has occured.
+- In between the `script tags` declare a new event listener on our window object and provide it two arguments, the event to listen for and the handler to fire once that event has occurred.
   - Add a single argument to the handler that will represent our `event`.
   - The `event` argument is implicitly passed with information about the keypress event that occurred.
   - One piece of information that will be passed along will be the `keyCode` of the key that was pressed.
-  - This `keyCode` will correlate with the `data-key` attribute assigned to our poylgons and audio tags.
+  - This `keyCode` will correlate with the `data-key` attribute assigned to our polygons and audio tags.
 
 ### Solution
 
@@ -58,7 +59,7 @@ In this step, we'll setup our application by declaring a new event listener and 
 <summary> <code> ./index.html </code> </summary>
 
 ```js
-window.addEventListener("keypress", function(e) {});
+window.addEventListener("keypress", function(keyPressEvent) {});
 ```
 
 </details>
@@ -87,10 +88,10 @@ In this step we'll get access to the visual key that was pressed (the unique pol
 <summary> <code> ./index.html </code> </summary>
 
 ```js
-window.addEventListener("keypress", function(e) {
-  const tone = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+window.addEventListener("keypress", function(keyPressEvent) {
+  const tone = document.querySelector(`audio[data-key="${keyPressEvent.keyCode}"]`);
   if (!tone) return;
-  const pianoKey = document.querySelector(`.pianoKey[data-key="${e.keyCode}"]`);
+  const pianoKey = document.querySelector(`.pianoKey[data-key="${keyPressEvent.keyCode}"]`);
 });
 ```
 
@@ -118,10 +119,10 @@ In this step we'll get our piano to play a note when we press one of the valid k
 <summary> <code> ./index.html </code> </summary>
 
 ```js
-window.addEventListener("keypress", e => {
-  const tone = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+window.addEventListener("keypress", function(keyPressEvent) {
+  const tone = document.querySelector(`audio[data-key="${keyPressEvent.keyCode}"]`);
   if (!tone) return;
-  const pianoKey = document.querySelector(`.pianoKey[data-key="${e.keyCode}"]`);
+  const pianoKey = document.querySelector(`.pianoKey[data-key="${keyPressEvent.keyCode}"]`);
   tone.currentTime = 0;
   tone.play();
 });
@@ -154,10 +155,10 @@ In this step we'll add an animation to make our keys work when their associated 
 <summary> <code> ./index.html </code> </summary>
 
 ```js
-window.addEventListener("keypress", e => {
-  const tone = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+window.addEventListener("keypress", function(keyPressEvent) {
+  const tone = document.querySelector(`audio[data-key="${keyPressEvent.keyCode}"]`);
   if (!tone) return;
-  const pianoKey = document.querySelector(`.pianoKey[data-key="${e.keyCode}"]`);
+  const pianoKey = document.querySelector(`.pianoKey[data-key="${keyPressEvent.keyCode}"]`);
   tone.currentTime = 0;
   pianoKey.classList.add("pressed");
   tone.play();

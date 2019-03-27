@@ -2,7 +2,7 @@
 
 # Project Summary
 
-The goal of this project is to build a collection of randomly appearing and disappearing dots that will follow your mouse movement. They will have random colors and sizes. When we're finished, we'll have the appearance of color popping balls following your mouse arround the screen.
+The goal of this project is to build a collection of randomly appearing and disappearing dots that will follow your mouse movement. They will have random colors and sizes. When we're finished, we'll have the appearance of color popping balls following your mouse around the screen.
 
 ## Step 1
 
@@ -17,15 +17,16 @@ Let's begin by setting up a couple of environment variables. These will be varia
   - We'll need a way to keep track of our mouse position.
     - create a variable called `mousePosition` and set it equal to an object.
     - Provide it a `x` and a `y` property, both initialized as 0.
-  - Next, add an undefined variable called `drawId`.
+  - Next create a variable called `drawId` with no initial value.
     - We'll use this variable to keep track of when the dots should be on or off the screen.
   - We'll also need a function to handle the randomizing of the color, positioning, and size of our dots.
     - Add this code beneath the `drawId` variable created above.
       ```js
-      const getRandomNumber = function(min, max) {
+      function getRandomNumber(min, max) {
         return Math.round(Math.random() * (max - min + 1)) + min;
       };
       ```
+    - This function will take in a min and a max number, and return a random number between those two.
 
 ### Solution
 
@@ -37,8 +38,8 @@ Let's begin by setting up a couple of environment variables. These will be varia
 const mousePosition = { x: 0, y: 0 };
 let drawId;
 
-const getRandomNumber = function(min, max) {
-  return Math.round(Math.random() * (max - min + 1)) + min;
+function getRandomNumber(min, max) {
+    return Math.round(Math.random() * (max - min + 1)) + min;
 };
 ```
 
@@ -64,6 +65,18 @@ In this step, we'll add a way for our application to `listen` for the mouse to m
     - Feel free to console log the event values to see what happens when you move the mouse.
 - We now know, programatically, the location of our mouse. Now we can add items to follow it!
 
+<details>
+
+<summary> <code> Detailed Instructions </code> </summary>
+
+- We need to make a new event listener for any time the mouse moves. To do this we are going to use `addEventListener` on the window object.
+- using `window.addEventListener` we are going to invoke it and pass in a string, stating what event we are waiting for, `mousemove`.
+- We will also pass in a function being the task to be performed when the mouse moves. We can either write the function inline as a function expression `('mousemove' function(){})` or make a name function and pass that in, `('mousemove', onMove)`. It will not make a difference either way.
+- This function will get passed in an argument which is an `event` object, full of information about the event that just happened. To make it more clear lets call it `mouseMoveEvent`. Two of the properties on the `mouseMoveEvent` object is the x axis position, and the y axis position as `mouseMoveEvent.pageX` and `mouseMoveEvent.pageY`.
+- We are going to overwrite the `mousePosition.x` and `mousePosition.y` with these two values so we can use it for later.
+
+</details>
+
 ### Solution
 
 <details>
@@ -78,9 +91,9 @@ const getRandomNumber = function(min, max) {
   return Math.round(Math.random() * (max - min + 1)) + min;
 };
 
-window.addEventListener('mousemove', function(e) {
-  mousePosition.x = e.pageX;
-  mousePosition.y = e.pageY;
+window.addEventListener('mousemove', function(mouseMoveEvent) {
+  mousePosition.x = mouseMoveEvent.pageX;
+  mousePosition.y = mouseMoveEvent.pageY;
 });
 ```
 
@@ -178,7 +191,8 @@ function draw(){
     });
 
     container.appendChild(ball);
-  }, 1);
+  }, 50);
+}
 ```
 
 </details>
@@ -192,7 +206,7 @@ In this step we'll start our interval by creating an event listener that will li
 ### Instructions
 
 - Open `index.html`.
-- Beneath our `draw` variable:
+- Beneath our `draw` function:
   - Create a new event listener on the window that will listen for a `mouseover` event.
   - The callback should invoke our `draw` function and store the resulting id to our `drawId` variable.
   - We'll use the `drawId` to cancel the interval anytime our mouse moves out of the window.
@@ -237,7 +251,7 @@ function draw() {
     const top = `top:${getRandomNumber(
       mousePosition.y - ballSize,
       mousePosition.y
-    )}px; `;
+    )}px;`;
     const style = `${left}${top}${color}${size}`;
 
     const ball = document.createElement('div');
@@ -249,7 +263,7 @@ function draw() {
     });
 
     container.appendChild(ball);
-  }, 1);
+  }, 50);
 }
 window.addEventListener('mouseover', function() {
   drawId = draw();
