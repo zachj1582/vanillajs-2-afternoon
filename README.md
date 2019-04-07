@@ -15,6 +15,28 @@ In this project, we'll provide two JavaScript applications to help improve your 
     * If you want to use `live-server`, run `npm i -g live-server` and run it in the command line within the project folder.
 * Complete each project according to its associated `README` and move on to the next.
 
+## Resources
+
+<details>
+
+<summary> <code> Event Listeners </code> </summary>
+
+* [addEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)
+* [Event Types](https://developer.mozilla.org/en-US/docs/Web/Events)
+* [Event Bubbling](https://javascript.info/bubbling-and-capturing)
+
+</details>
+
+<details>
+
+<summary> <code> Document Interactions </code> </summary>
+
+* [HTML Document Object](https://www.w3schools.com/js/js_htmldom_document.asp)
+* [QuerySelector/All](https://developer.mozilla.org/en-US/docs/Web/API/Element/querySelectorAll)
+
+</details>
+
+
 ## Contributions
 
 If you see a problem or a typo, please fork, make the necessary changes, and create a pull request so we can review your changes and merge them into the master repo and branch.
